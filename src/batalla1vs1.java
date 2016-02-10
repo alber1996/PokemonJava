@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 /*
  * Juego de Batallas 1vs1 de Pokemon
  * Por Ish Milan
@@ -7,7 +9,7 @@
 
 public class batalla1vs1 {
 
-	public static void main(String[] args) {
+	public void main() throws IOException {
 		Pokemon p1=new Pokemon();
 		Pokemon p2=new Pokemon();
 		p1.setTipo(false);
@@ -34,10 +36,13 @@ public class batalla1vs1 {
 		}
 		System.out.print("\nVictoria para ");
 		if (p1.vida<=0) {
-			System.out.print(p2.nombre);
+			System.out.print(p2.nombre+" ¡Lo siento!");
 		}else{
-			System.out.print(p1.nombre);
+			System.out.print(p1.nombre+" ¡Enhorabuena!");
 		}
+
+		System.out.println("Pulse intro para continuar");
+		System.in.read();
 		
 	}
 
