@@ -9,7 +9,7 @@ ish.professional@gmail.com
 
 - Antes de la integración hay que tener el codigo documentado y testado.
 
-Dicho esto a disfrutar!!!^^:+1:
+Dicho esto a disfrutar!!!:^^: :+1:
 
 PARTICIPANTES:
 
