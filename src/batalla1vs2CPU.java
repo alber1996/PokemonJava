@@ -17,20 +17,25 @@ public class batalla1vs2CPU {
 		Pokemon p2 = new Pokemon();
 		Pokemon p3 = new Pokemon();
 		
-		p1.setTipo();
+		p1.setTipo(false);
 		p1.setNombre();
 		p1.setAtaques();
-		p1.caracteristicas();
+		System.out.println(p1.nombre+" es de tipo "+p1.tipo);
+		p1.printStatus();
 		
-		p2.setTipoRandom((int)(Math.random()*4));
+		p2.setTipo(true);
 		p2.setNombre();
 		p2.setAtaques();
+		System.out.println(p2.nombre+" es de tipo "+p2.tipo);
+		p2.printStatus();
 		
-		p3.setTipoRandom((int)(Math.random()*4));
+		p3.setTipo(true);
 		p3.setNombre();
 		p3.setAtaques();
+		System.out.println(p3.nombre+" es de tipo "+p3.tipo);
+		p3.printStatus();
  
-		System.out.println("¡Estás luchando contra! "+p2.nombre+" y "+p3.nombre);
+		System.out.println("¡Estás luchando contra "+p2.nombre+" y "+p3.nombre+"!");
 		do{
 		if(p1.vida>0){
 		System.out.println("¿A cuál vas a atacar?");
@@ -49,7 +54,7 @@ public class batalla1vs2CPU {
 		if(p2.vida>0){
 		System.out.println("\nAtaque de "+p2.nombre);
 		ataque=(int)(Math.random()*2+1);
-		p2.atacarRandom(p2.tipo);
+		p2.atacar(p2.tipo);
 		if (ataque==1) {
 			System.out.println("Vida de "+p1.nombre+" = "+p1.perderV(p2.ataque));
 		}else{
@@ -58,7 +63,7 @@ public class batalla1vs2CPU {
 		}
 		if(p3.vida>0){
 		System.out.println("\nAtaque de "+p3.nombre);
-		p3.atacarRandom(p3.tipo);
+		p3.atacar(p3.tipo);
 		ataque=(int)(Math.random()*2+1);
 		if (ataque==1) {
 			System.out.println("Vida de "+p1.nombre+" = "+p1.perderV(p3.ataque));

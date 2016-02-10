@@ -1,7 +1,7 @@
 /*
  * Clase generadora de Pokemon
  * Por Ish Milan
- * V1.6
+ * V1.7
  */
 
 
@@ -10,24 +10,36 @@ import java.util.Scanner;
 public class Pokemon {
 	private Scanner sc = new Scanner(System.in);
 //ATRIBUTOS:
-	private String nombre;
+	public String nombre;
 	public String tipo;
 	public double vida=Math.random()*100+150;
+	public double vidaPerdida=0;
 	public double ataque;
 	public String mov1;
 	public String mov2;
 	public String mov3;
+	public int pp1=6;
+	public boolean cpu=false;
 //METODOS:
-	public void setTipo(){//El usuario define el tipo para el pokemon
-		System.out.print("Tipo: \n  P(planta)\tF(fuego) \n  A(agua)\tL(lucha) \n  E(eléctrico)\tN(normal)\nSeleccione el tipo deseado: ");
-		String t=sc.next().toLowerCase().substring(0, 1);
+	public void setTipo(boolean b){//El usuario define el tipo para el pokemon
+		String t;
+		if (b==true) {
+			cpu=true;
+		}
+		if (cpu==false) {
+			System.out.print("Tipo: \n  P(planta)\tF(fuego) \n  A(agua)\tL(lucha) \n  E(eléctrico)\tN(normal)\nSeleccione el tipo deseado: ");
+			t=sc.next().toLowerCase().substring(0, 1);
+		} else {
+			String[] genTi ={"p","f","a","l","e","n"};
+			t=genTi[(int)(Math.random()*6)];
+		}
 		switch (t) {
-		case "p": tipo="planta"; break;
-		case "f": tipo="fuego"; break;
-		case "a": tipo="agua"; break;
-		case "l": tipo="lucha"; break;
-		case "e": tipo="eléctrico"; break;
-		default: tipo="normal"; break;
+			case "p": tipo="planta"; break;
+			case "f": tipo="fuego"; break;
+			case "a": tipo="agua"; break;
+			case "l": tipo="lucha"; break;
+			case "e": tipo="eléctrico"; break;
+			default: tipo="normal"; break;
 		}
 	}
 	public void setNombre(){//Genera el nombre del pokemon de un array(6x6) a partir del tipo elegido
@@ -67,22 +79,22 @@ public class Pokemon {
 		mov2=movimientos[t][random];
 		mov3=movimientos[t][random+2];
 	}
-	public String getTipo(){//Retorna el tipo
-		return tipo;
-	}
-	public String getN(){//Retorna el nombre
-		return nombre;
-	}
 	public double perderV(double at){//Pierde tantos puntos de vida como se le pasen como parametro
 		vida-=at;
+		vidaPerdida+=at;
 		return vida;
 	}
 	public void printStatus(){//Imprime los puntos de vida del pokemon
 		System.out.printf("\n%s tiene %.2f puntos de vida.\n\n",this.nombre,this.vida);
 	}
 	public double atacar(String tipEn){//Realiza la acción de atacar generando el daño del ataque
-		System.out.println(this.nombre+":\n(1)"+this.mov1+"\t(2)"+this.mov2+"\t(3)"+this.mov3);
-		int m = sc.nextInt();
+		int m;
+		if (cpu==false) {
+			System.out.println(this.nombre+":\n(1)"+this.mov1+"\t(2)"+this.mov2+"\t(3)"+this.mov3);
+			m = sc.nextInt();
+		} else {
+			m=(int)(Math.random()*2+1);
+		}
 		String mov;
 		if (m==1){
 			mov=mov1;
@@ -95,7 +107,14 @@ public class Pokemon {
 		}
 		if (mov=="Megaagotar"){
 			ataque=Math.random()*25+10;
-			vida+=Math.random()*10+10;
+			double rec=Math.random()*10+10;
+			if (rec<=vidaPerdida){
+				vida+=rec;
+				vidaPerdida-=rec;
+			}else{
+				rec=vidaPerdida;
+				vidaPerdida=0;
+			}
 			printStatus();
 		}else{
 			if (tipo.equals("fuego")&&tipEn.equals("planta") ||
