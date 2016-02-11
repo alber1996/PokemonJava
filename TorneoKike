@@ -1,0 +1,56 @@
+package Pokemon;
+/**
+ * Torneo pokémon. El usuario contra 8 pokémon
+ * @author Enrique
+ * @version 1.0
+ */
+public class Torneo {
+
+	public static void main(String[] args) {
+		System.out.println("¡Bienvenido al torneo pokémon!");
+		int con=0;
+		Pokemon p1 = new Pokemon();
+		Pokemon p2 = new Pokemon();
+		//Pokémon que va a usar el usuario.
+		p1.setTipo(false);
+		p1.setNombre();
+		p1.setAtaques();
+		System.out.printf("Nombre : %s\n Ataque : %.2f\n Vida: %.2f\n",p1.nombre,p1.ataque,p1.vida);
+		//Pokémon a los que se va a enfrentar.
+		p2.setTipo(true);
+		p2.setNombre();
+		p2.setAtaques();
+		System.out.println(p1.nombre+"\nvs\n"+p2.nombre);
+		do{
+			if (p2.vida>0) {
+				p1.atacar(p1.tipo);
+				p2.perderV(p1.ataque);
+				System.out.printf("\nVida de %s %.2f",p2.nombre,p2.vida);
+			}
+			if (p1.vida>0) {
+				p2.atacar(p2.tipo);
+				p1.perderV(p2.ataque);
+				System.out.printf("\nVida de %s %.2f \n",p1.nombre,p1.vida);
+			}
+			if (p2.vida<=0) {
+				/*Si el usuario consigue derrotar a un pokémon se crea otro, así hasta 8 veces
+				 SIEMPRE QUE EL USUARIO LO CONSIGA, CLARO.
+				 * */
+				p1.vida+=p1.vidaPerdida;
+				p1.vidaPerdida=0;
+				p2 = new Pokemon(); 
+				p2.setTipo(true);
+				p2.setNombre();
+				p2.setAtaques();
+				System.out.println(p1.nombre+"\nvs\n"+p2.nombre);
+				con++;
+			}
+		}while(p1.vida>0&&p2.vida>0&&con!=8);
+		if(p1.vida<=0){
+			System.out.println("Ooh,has perdido.¡Esperamos verte otra vez! Has derrotado "+con+" pokémon");
+		}else{
+			System.out.println("¡Enhorabuena, has destrozado a todos esos pokémon!");
+		}
+		
+	}
+}
