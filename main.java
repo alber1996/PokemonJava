@@ -8,11 +8,11 @@ import java.util.Scanner;
  */
 public class main {
 public static Scanner sc= new Scanner(System.in);
-public static void main(String[] args) throws IOException {
-	String opc = "1";
-	do {
-		System.out.print("\033[H\033[2J");
-		System.out.println(
+public static void printIntro() throws InterruptedException{
+	System.out.print("\033[H\033[2J");//NO BORRAR: En eclipse no limpia la pantalla, en la consola sí 
+	System.out.flush();
+	Thread.sleep(200);
+	System.err.println("\n"+
 "                                     .::.\n"+
 "                                   .;:**'\n"+
 "                                   `\n"+
@@ -25,10 +25,16 @@ public static void main(String[] args) throws IOException {
 "      ?MMM>   YMMMMMM! MM   `?MMRb.    `\"\"\"   !L\"MMMMM  XM IMMM\n"+
 "       MMMX   \"MMMM\"   MM       ~%:           !Mh.\"\"\"  dMI IMMP\n"+
 "       'MMM.                                               IMX\n"+
-"       ~M!M                                               IMP\n\n\n\n");
-	System.out.print("Bienvenido a PokemonJava.\n¿Qué desea hacer?\n1)batalla\t2)torneo\t3)hiatoria\t4)salir\n->");
+"       ~M!M                       JAVA                    IMP\n\n\n\n");
+	Thread.sleep(200);
+}
+public static void main(String[] args) throws IOException, InterruptedException {
+	String opc = "1";
+	do {
+	printIntro();
+	System.out.print("Bienvenido a PokemonJava.\n¿Qué desea hacer?\n1)batalla\t2)torneo\t3)historia\t4)salir\n->");
 	opc=sc.next().toLowerCase().substring(0, 1);
-	batalla1vs1 b = new batalla1vs1(); 
+	Batalla b = new Batalla(); 
 	switch (opc) {
 		case "1": b.main();break;
 		case "2": break;
